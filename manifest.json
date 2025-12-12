@@ -1,0 +1,15 @@
+{
+  "name": "Ayudante de Decisiones",
+  "short_name": "Decisiones",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4A90E2",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/4228/4228743.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
