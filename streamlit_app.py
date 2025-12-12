@@ -75,10 +75,9 @@ st.title("🧠 Analizador de Decisiones — Modelo de Kahneman")
 
 st.markdown(
 """
-Bienvenido al analizador interactivo de decisiones.  
-Aquí podrás comparar una **opción segura** vs una **opción riesgosa**,  
-evaluar su **valor esperado**, identificar el **cuadrante psicológico**  
-y recibir una **recomendación racional** junto al **sesgo cognitivo probable**.
+Bienvenido al analizador interactivo de decisiones. 
+Aquí podrás comparar una **opción segura** vs una **opción riesgosa**, 
+evaluar su **valor esperado**, identificar el **cuadrante psicológico** y recibir una **recomendación racional** junto al **sesgo cognitivo probable**.
 """
 )
 
@@ -103,7 +102,10 @@ if st.button("➡ Analizar decisión"):
     # -----------------------------------------------------
     VE_riesgo = p * valor_riesgoso
     p_segura = 1 - p
-    VE_segura = p_segura * valor_seguro
+    # El Valor Esperado (VE) de la opción segura es el premio total,
+    # ya que se asume que su probabilidad de ocurrir es 1 (segura)
+    # Para el modelo, usamos el valor de la opción segura directamente como su VE:
+    VE_segura = valor_seguro 
 
     # -----------------------------------------------------
     # DETERMINAR CUADRANTE PSICOLÓGICO
@@ -111,7 +113,7 @@ if st.button("➡ Analizar decisión"):
     if escenario == "Ganancia":
         if p >= 0.5:
             cuadrante = 1
-            sesgo = "Aversion al riesgo moderada"
+            sesgo = "Aversión al riesgo moderada"
             descripcion = "Ganancia probable. La mayoría prefiere asegurar."
         else:
             cuadrante = 2
@@ -146,8 +148,7 @@ if st.button("➡ Analizar decisión"):
     ### **🧩 Cuadrante psicológico**
     **CUADRANTE {cuadrante} — {descripcion}**
 
-    **Sesgo cognitivo probable:**  
-    👉 *{sesgo}*
+    **Sesgo cognitivo probable:** 👉 *{sesgo}*
 
     ---
 
@@ -160,18 +161,20 @@ if st.button("➡ Analizar decisión"):
     ### **🔍 Recomendación Final**
     {color_r} **{recomendación}**
     """)
-
+    
     # -----------------------------------------------------
-    # GRÁFICO VALOR ESPERADO VS PROBABILIDAD
+    # GRÁFICO VALOR ESPERADO VS PROBABILIDAD (CORREGIDO)
     # -----------------------------------------------------
     fig, ax = plt.subplots(figsize=(6,4))
 
     # Puntos
     ax.scatter(p_segura, VE_segura, color="green", s=120)
-    ax.text(p_segura, VE_segura, f" Segura (${valor_seguro:,.0f})", fontsize=10)
+    # 🟢 Texto corregido
+    ax.text(p_segura, VE_segura, f" Segura (VE: ${VE_segura:,.0f})", fontsize=10) 
 
     ax.scatter(p, VE_riesgo, color="red", s=120)
-    ax.text(p, VE_riesgo, f" Riesgo (${valor_riesgoso:,.0f})", fontsize=10)
+    # 🔴 Texto corregido
+    ax.text(p, VE_riesgo, f" Riesgo (VE: ${VE_riesgo:,.0f})", fontsize=10)
 
     # Estética
     ax.set_xlabel("Probabilidad")
