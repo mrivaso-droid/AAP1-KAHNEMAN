@@ -1,4 +1,18 @@
 import streamlit as st
+
+st.set_page_config(
+    page_title="Analizador de Decisiones",
+    page_icon="assets/icon-192.png",
+    layout="centered"
+)
+
+st.markdown(
+    """
+    <link rel="manifest" href="/manifest.json">
+    """,
+    unsafe_allow_html=True
+)
+
 import matplotlib.pyplot as plt
 
 # -------------------------
